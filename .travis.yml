@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+  - 'lts/*'
+cache: yarn
+install:
+  - yarn global add @microsoft/api-documenter @microsoft/api-extractor
+  - yarn install
+script:
+  - yarn test
+  - yarn build
+before_deploy:
+  - cd dist
+deploy:
+  provider: npm
+  skip_cleanup: true
+  email: '$NPM_EMAIL'
+  api_key: '$NPM_TOKEN'
+  on:
+    tags: true
